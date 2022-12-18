@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>
+          AZKript - Caesar
+        </title>
+        <style>
+          .content {
+          position: fixed;
+          bottom: 0;
+          background: rgb(0, 0, 0, 0);
+          color: #f1f1f1;
+          width: 100%;
+          height: 99%;
+          }
+          .content_alt {
+          position: fixed;
+          bottom: 0;
+          background: rgb(0, 0, 0, 0.5);
+          color: #f1f1f1;
+          width: 100%;
+          padding: 0px;
+          height: 7%;
+          }
+          .content_ust {
+            position: fixed;
+            width: 10%;
+            height: 70px;
+            padding: 0px;
+            position: absolute;
+            top: 15px;
+            right: 0px;
+            }
+      </style>
+    </head>
+    <body style="background-color: black;">
+      <video style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;" autoplay muted loop>
+        <source src="4k background footage (ideal for Blockchain Website).webm" type="video/webm">
+      </video>
+      <div class="content">
+        <div style="text-align: center; margin-top: 150px; font-size: 20pt;">
+
+          <img style="width: 200px; height: 200px; margin-bottom: 40px;" src="caesar-cipher.png">
+
+          <form style="font-size: 20pt;">  
+            Enter plaintext : <textarea type="text" id="Caesar" name="number"></textarea><br/><br/>
+            Enter key: <input type="text" id="key" name="number_2"/><br/><br/>
+            Caesar <input type="button" style="font-size: 15pt;" value="encode" onclick="Caesar_encoder()"/>
+            <input type="button" style="font-size: 15pt;" value="decode" onclick="Caesar_decoder()"/>
+          </form>  
+          Ciphertext : <textarea id="plaintext"></textarea>
+    
+          <script>
+            function Caesar_encoder() {
+              var str = document.getElementById("Caesar").value;
+              var shift = document.getElementById("key").value;
+              var getMap = (legend, shift) => {
+                return legend.reduce((charsMap, currentChar, charIndex) => {
+                    var copy = { ...charsMap };
+                    let ind = (charIndex - shift) % legend.length;
+                    if (ind < 0) {
+                      ind += legend.length;
+                    };
+                    copy[currentChar] = legend[ind];
+                    return copy;
+                }, {});
+              };
+              var encrypt = (str, shift = 0) => {
+                var legend = 'abcdefghijklmnopqrstuvwxyz'.split('');
+                var map = getMap(legend, shift);
+                return str
+                .toLowerCase()
+                .split('')
+                .map(char => map[char] || char)
+                .join('');
+              };
+              console.log(encrypt(str, shift));
+              document.getElementById("plaintext").innerHTML = encrypt(str, shift);
+            }
+          </script>
+    
+    
+    
+    
+    
+    
+          Plaintext : <textarea id="ciphertext"></textarea>
+    
+          <script>
+            function Caesar_decoder() {
+              var str = document.getElementById("Caesar").value;
+              var shift = document.getElementById("key").value;
+              var shift_2 = -shift;
+              var getMap = (legend, shift_2) => {
+                return legend.reduce((charsMap, currentChar, charIndex) => {
+                    var copy = { ...charsMap };
+                    let ind = (charIndex - shift_2) % legend.length;
+                    if (ind < 0) {
+                      ind += legend.length;
+                    };
+                    copy[currentChar] = legend[ind];
+                    return copy;
+                }, {});
+              };
+              var decrypt = (str, shift_2 = 0) => {
+                var legend = 'abcdefghijklmnopqrstuvwxyz'.split('');
+                var map = getMap(legend, shift_2);
+                return str
+                .toLowerCase()
+                .split('')
+                .map(char => map[char] || char)
+                .join('');
+              };
+              console.log(decrypt(str, shift_2));
+              document.getElementById("ciphertext").innerHTML = decrypt(str, shift_2);
+            }
+          </script>
+        </div>
+      </div>
+      <div class="content_alt">
+        <p style="font-size: 20pt; text-align: center;"><a style="color: white;" href="MD5.html" target="_top">MD5</a> ______ <a style="color: white;" href="ROT13.html" target="_top">ROT13</a> _____ <a style="color: white;" href="Base64.html" target="_top">Base64</a> _____ <a style="color: white;" href="Reverse.html" target="_top">Reverse</a></p>
+      </div>
+    </body>
+</html>
